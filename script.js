@@ -11,9 +11,18 @@ function calculate() {
   const currency_one = currencyEl_one.value;
   const currency_two = currencyEl_two.value;
 
-  fetch()
+  debugger;
+  fetch(
+    `https://v6.exchangerate-api.com/v6/de73dcbc1e4b939206bfd388/latest/USD/`
+  )
     .then((resp) => resp.json)
-    .then((data) => console.log(data));
+    .then((data) => {
+      const rate = data.conversion_rates[currency_two];
+
+      rateEl.innerText = `1 ${currency_one} = ${rate} ${currency_two}`;
+
+      amountEl_two.value = (amountEl_one.value * rate).toFixed(2);
+    });
 }
 
 //Event Listeners
